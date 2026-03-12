@@ -10,6 +10,7 @@ router.get("/", courseController.getCourses);
 router.get("/:id", courseController.getCourseById);
 router.put("/:id", courseController.updateCourse);
 router.delete("/:id", courseController.deleteCourse);
+router.get("/:id/full", courseController.getCourseWithContent);
 
 
 module.exports = router;
