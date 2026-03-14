@@ -12,10 +12,11 @@ app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
+// import routes
 const courseRoutes = require("./src/routes/courseRoutes");
 const moduleRoutes = require("./src/routes/moudleRoutes");
 const lessonRoutes = require("./src/routes/lessonRoutes");
-
+// use routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/modules", moduleRoutes);
 app.use("/api/lessons", lessonRoutes);

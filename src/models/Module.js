@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
 const moduleSchema = new mongoose.Schema({
-  course: {
+  lesson: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course',
-    required: true
-  },
+    ref: "Lesson"
+  }],
   title: {
     type: String,
     required: true
@@ -20,14 +19,6 @@ const moduleSchema = new mongoose.Schema({
   }
 },{timestamps: true});
 
-// to make virtual field for lessons in module
-moduleSchema.virtual("lessons", {
-  ref: "Lesson",
-  localField: "_id",
-  foreignField: "module"
-});
-// to include virtuals in JSON response
-moduleSchema.set("toJSON", { virtuals: true });
 
 
 const Module = mongoose.model('Module', moduleSchema);

@@ -4,6 +4,7 @@ const Lesson = require('../models/Lesson');
 const createLesson = async (req, res) => {
     try {
         const { module, title, description, content } = req.body;
+
         const lesson = new Lesson({ module, title, description, content });
         await lesson.save();
         res.status(201).json(lesson);
