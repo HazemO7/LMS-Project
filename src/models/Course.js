@@ -18,6 +18,7 @@ const courseSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
+
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -28,3 +29,4 @@ const courseSchema = new mongoose.Schema(
 
 const Course = mongoose.model("Course", courseSchema);
 module.exports = Course;
+

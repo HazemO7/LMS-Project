@@ -2,15 +2,33 @@ const Lesson = require('../models/Lesson');
 
 // Create Lesson
 const createLesson = async (req, res) => {
-    try {
-        const { module, title, description, content } = req.body;
+  try {
+    const { module, title, content } = req.body;
 
-        const lesson = new Lesson({ module, title, description, content });
-        await lesson.save();
-        res.status(201).json(lesson);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    if (!module || !title || !content) {
+      return res.status(400).json({
+        status: "fail",
+        message: "All fields are required"
+      });
     }
+
+    const lesson = await Lesson.create({
+      module,
+      title,
+      content
+    });
+
+    res.status(201).json({
+      status: "success",
+      data: lesson
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
+  }
 };
 // Get All Lessons
 const getLessons = async (req, res) => {
@@ -37,7 +55,8 @@ const getLessonById = async (req, res) => {
 const updateLesson = async (req, res) => {
     try {
         const { module, title, description, content } = req.body;
-        const lesson = await Lesson.findByIdAndUpdate(req.params.id, { module, title, description, content }, { new: true });
+        const lesson = await Lesson.findByIdAndUpdate(req.params.id,
+             { module, title, description, content }, { new: true });
         if (!lesson) {
             return res.status(404).json({ message: 'Lesson not found' });
         }

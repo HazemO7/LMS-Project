@@ -16,10 +16,13 @@ const port = process.env.PORT || 3000;
 const courseRoutes = require("./src/routes/courseRoutes");
 const moduleRoutes = require("./src/routes/moudleRoutes");
 const lessonRoutes = require("./src/routes/lessonRoutes");
+const authRoutes = require("./src/routes/authRouters");
+
 // use routes
 app.use("/api/courses", courseRoutes);
 app.use("/api/modules", moduleRoutes);
 app.use("/api/lessons", lessonRoutes);
+app.use("/api/user" , authRoutes);
 
 
 // data base connection 

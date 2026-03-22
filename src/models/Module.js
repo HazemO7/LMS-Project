@@ -20,7 +20,6 @@ const moduleSchema = new mongoose.Schema({
 },{timestamps: true});
 
 
-
 const Module = mongoose.model('Module', moduleSchema);
 
 module.exports = Module;
