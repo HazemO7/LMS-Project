@@ -1,8 +1,9 @@
 
 const Course = require("../models/Course");
+const Module = require("../models/Module");
+const Lesson = require("../models/Lesson");
 
-
-// Create Course
+// Create Course with admin only
 
 const createCourse = async (req, res) => {
     try {
@@ -13,6 +14,7 @@ const createCourse = async (req, res) => {
             description,
             instructor
         });
+        
 // save course to database
         const savedCourse = await course.save();
 // send response
@@ -50,6 +52,35 @@ const getCourses = async (req, res) => {
         });
     }
 };
+
+//get all courses with modules and lessons
+const getCoursesWithModules = async (req, res) => {
+    try {
+       
+        const courses = await Course.find()
+            .populate({
+                path: 'modules', 
+                populate: {
+                    path: 'lesson', 
+                    model: 'Lesson'   
+                }
+            })
+
+        res.json({
+            status: "success",
+            results: courses.length,
+            data: courses
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: error.message
+        });
+    }
+};
+
+
 // Get Course By ID
 const getCourseById = async (req, res) => {
     try {
@@ -74,6 +105,8 @@ const getCourseById = async (req, res) => {
         });
     }
 };
+
+
 
 // Update Course
 
@@ -135,6 +168,7 @@ const deleteCourse = async (req, res) => {
 module.exports = {
     createCourse,
     getCourses,
+    getCoursesWithModules,
     getCourseById,
     updateCourse,
     deleteCourse,

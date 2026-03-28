@@ -7,4 +7,5 @@ router.get("/", lessonController.getLessons);
 router.get("/:id", lessonController.getLessonById);
 router.put("/:id", lessonController.updateLesson);
 router.delete("/:id", lessonController.deleteLesson);
+
 module.exports = router;

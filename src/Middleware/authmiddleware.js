@@ -1,22 +1,39 @@
 const jwt = require("jsonwebtoken");
 
-const authMiddleware = async (req, res, next) => {
-  try {
-    // Get Token From Headers
-    const authHeaders = req.headers.authorization;
 
-    if (!authHeaders) return res.json({ msg: "Not Find Token" });
+// Middleware to verify JWT token and check if user is admin
+const authMidleware = (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
 
-    const token = authHeaders.split(" ")[1];
+        if (!authHeader) {
+            return res.status(401).json({
+                msg: "No token provided"
+            });
+        }
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const token = authHeader.split(" ")[1];
 
-    req.user = decodedToken;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+// Attach user information into request object
+        req.user = decoded;
 
-    next();
-  } catch (error) {
-    console.log(error);
-  }
+        // check admin or not
+        if (req.user.role !== "admin") {
+            return res.status(403).json({
+                msg: "Access denied, admins only"
+            });
+        }
+
+        next();
+
+    } catch (error) {
+        return res.status(401).json({
+            msg: "Invalid token",
+            error: error.message
+        });
+    }
 };
 
-module.exports = authMiddleware;
+
+module.exports = authMidleware;

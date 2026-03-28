@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const { registerSchema, loginSchema } = require("./validation/authValidation");
 
+
+/////////////// register user ////////////////////
 const register = async (req, res) => {
   try {
     const { error, value } = registerSchema.validate(req.body, {
@@ -19,10 +21,10 @@ const register = async (req, res) => {
     }
 
     // get Data
-    const { username, email, password, role } = value;
+    const { name, email, password, role } = value;
     // Validated Data
-    // if (!username || !email || !password)
-    //   return res.status(400).json({ msg: "Missing Data" });
+    if (!name || !email || !password)
+      return res.status(400).json({ msg: "Missing Data" });
 
     const existUser = await User.findOne({ email });
     if (existUser)
@@ -31,7 +33,7 @@ const register = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      username,
+      name,
       email,
       password: hashPassword,
       role,
@@ -46,6 +48,8 @@ const register = async (req, res) => {
     console.log(error);
   }
 };
+//////////////// login user ///////////////////////  
+
 
 const login = async (req, res) => {
   try {
@@ -96,8 +100,24 @@ const login = async (req, res) => {
   }
 };
 
+/////////////// logout user /////////////
+
+const logout = async (req, res) => { 
+  try {
+    res.status(200).json({
+      msg: "Success Logout",
+    });
+  } catch (error) {
+    console.log(error);
+  } 
+};
+
+
+
+///// Export Controller ////
 
 module.exports = {
   register,
   login,
+  logout,
 };

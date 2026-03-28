@@ -26,17 +26,16 @@ app.use("/api/user" , authRoutes);
 
 
 // data base connection 
-async function DBconted() {
+async function DBconcted() {
         try {
             await mongoose.connect(process.env.DB_URL)
             console.log("Data Base Connected");
         } catch (error) {
             console.log("error in connction Data Base"); 
         }
-    
 }
 
-DBconted();
+DBconcted();
 
 
 //port listen

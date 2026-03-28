@@ -1,15 +1,10 @@
-const mongoose = require("mongoose");
 
+
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema(
 {
-    modules: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Module"
-        }
-    ],
-
+   
     title:{
         type:String,
         required: true,
@@ -23,6 +18,13 @@ const courseSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
+     modules: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Module"
+        }
+    ],
+
 },
 {timestamps:true});
 

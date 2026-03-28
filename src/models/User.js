@@ -11,7 +11,7 @@ const userScheam = new mongoose.Schema(
 
     email: {
         type: String,
-        required: true,
+        requierd: true,
         unique: true,
     },
     password:{
@@ -20,10 +20,11 @@ const userScheam = new mongoose.Schema(
     },
     role: {
         type: String,
-        enum:["adimn", "student"],
+        enum:["admin", "student"],
         default: "student",
       },
 },
+
 {Timestamps:true});
 
 

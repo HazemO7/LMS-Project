@@ -3,18 +3,20 @@ const Lesson = require('../models/Lesson');
 // Create Lesson
 const createLesson = async (req, res) => {
   try {
-    const { module, title, content } = req.body;
+    const {  title,description, content } = req.body;
 
-    if (!module || !title || !content) {
+    if (!description || !title || !content) {
       return res.status(400).json({
         status: "fail",
         message: "All fields are required"
       });
     }
+    
 
     const lesson = await Lesson.create({
-      module,
+     
       title,
+      description,
       content
     });
 
@@ -51,6 +53,7 @@ const getLessonById = async (req, res) => {
         res.status(500).json({ message: error.message });   
     }
 };
+
 // Update Lesson
 const updateLesson = async (req, res) => {
     try {

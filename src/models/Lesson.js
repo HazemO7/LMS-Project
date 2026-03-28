@@ -4,14 +4,16 @@ const lessonSchema = new mongoose.Schema({
   module: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Module",
-   
+    
   },
+  
   title: {
     type: String,
     required: true
   },
   description: {
     type: String,
+    required: true
   },
   content: {
     type: String,

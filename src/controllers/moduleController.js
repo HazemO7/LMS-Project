@@ -1,4 +1,6 @@
 const Module = require('../models/Module');
+const Course = require("../models/Course");
+
 
 // Create Module
 const createModule = async (req, res) => {
@@ -6,20 +8,28 @@ const createModule = async (req, res) => {
         const { title, description, content } = req.body;
         const module = new Module({ title, description, content });
         await module.save();
-        res.status(201).json(module);
+        res.status(201).json({
+            msg: "Module created successfully",
+            data: module
+        });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
+
 // Get All Modules
 const getModules = async (req, res) => {
     try {
         const modules = await Module.find();
-        res.status(200).json(modules);
+        res.status(200).json({
+            msg: "Modules retrieved successfully",
+            data: modules
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 // Get Module By ID
 const getModuleById = async (req, res) => {
     try {
@@ -32,7 +42,8 @@ const getModuleById = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-const Course = require("../models/Course");
+
+
 
 
 // Update Module

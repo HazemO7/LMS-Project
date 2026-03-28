@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 
 const moduleSchema = new mongoose.Schema({
-  lesson: [{
+  
+  course: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Lesson"
-  }],
+    ref: "Course",
+   
+   },
+  
   title: {
     type: String,
     required: true
@@ -16,7 +19,11 @@ const moduleSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
-  }
+  },
+  lesson: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Lesson"
+  }],
 },{timestamps: true});
 
 
